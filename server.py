@@ -13,9 +13,6 @@ class MainHandler(BaseHandler):
         pass
 
     def get(self):
-        # TODO generate Dummy data will be removed on production
-        # self.'Hi I Am Windy Tornado\n Avaliable Routes \n\
-        #            http:localhost:3000/api/v1/users')
         self.respond("Invalid Request", 404)
 
 
