@@ -2,7 +2,7 @@ import os
 
 from tornado.ioloop import IOLoop
 import tornado.web
-
+import tornado.options
 from handlers.base_handler import BaseHandler
 from routes.messenger_route import messenger_routes
 from routes.user_route import user_routes
@@ -29,6 +29,7 @@ class Application(tornado.web.Application):
         handlers.extend(user_routes)
         handlers.extend(messenger_routes)
         tornado.web.Application.__init__(self, handlers, settings)
+        tornado.options.parse_command_line()
 
 
 def main():

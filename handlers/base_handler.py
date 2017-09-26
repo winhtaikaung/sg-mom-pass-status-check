@@ -35,7 +35,7 @@ class BaseHandler(tornado.web.RequestHandler):
             self.respond(e.message, e.code)
         except Exception as e:
             LOGGER.error(
-                "\n\n======== Myanlearn SERVER ERROR ========\n%s\n%s\n",
+                "\n\n======== SGMomPassChecker SERVER ERROR ========\n%s\n%s\n",
                 __file__,
                 traceback.format_exc()
             )
@@ -50,4 +50,5 @@ class BaseHandler(tornado.web.RequestHandler):
             "meta_data": metadata,
             # "status": code,
         }))
+        self.set_header("Content-Type", "application/json")
         self.finish()

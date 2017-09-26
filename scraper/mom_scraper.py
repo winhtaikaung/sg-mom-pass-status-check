@@ -18,7 +18,7 @@ class MOMScrapper(object):
             """
             TODO if Not available give empty dictionary 
             """
-            dict_response = dict(error=408,
+            dict_response = dict(code=408,
                                  message="စစ်ဆေးနိုင်မည့်အချိန်\nတနင်္လာနေ့ မှ သောကြာနေ့ တွင် နံနက် ၈ : ၀၀ - ည ၈ : ၀၀ အထိ : \nစနေနေ့တွင် နံနက် ၈ : ၀၀ - ညနေ ၂ : ၀၀ အထိ\nစစ်လို့ရပါတယ်")
 
         elif "PEPOLENQM009" in title_text:
@@ -32,7 +32,7 @@ class MOMScrapper(object):
                                  {pq(tb_row).text().split(":")[0].strip(): pq(tb_row).text().split(":")[1].strip()})
                              )
         else:
-            dict_response = dict(error=503,
+            dict_response = dict(code=503,
                                  message="Internal Server Error")
 
         return callback(dict_response)

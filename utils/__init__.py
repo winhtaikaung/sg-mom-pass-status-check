@@ -29,47 +29,6 @@ def mongo_callback(req):
     return decorator
 
 
-def unpack(*arguments):
-    """
-    Unpack arguments to be used in methods wrapped
-    """
-
-    def decorator(func):
-        def wrapper(_self, data, **kwargs):
-            data = smart_parse(data)
-            try:
-                args = [data[item] for item in arguments]
-            except KeyError:
-                raise MissingField(item)
-
-            kwargs["_arguments"] = arguments
-
-            func(_self, *args, **kwargs)
-
-        return wrapper
-
-    return decorator
-
-
-def type_check(*types):
-    """
-    Checks unpacked arguments for types
-    """
-
-    def decorator(func):
-        def wrapper(_self, *args, **kwargs):
-            for arg, _type, _arg in zip(args, types, kwargs.pop("_arguments")):
-                if not isinstance(arg, _type):
-                    if _type is str and isinstance(arg, unicode):
-                        continue
-                    raise WrongFieldType(_arg, arg, _type)
-            func(_self, *args, **kwargs)
-
-        return wrapper
-
-    return decorator
-
-
 def form_urlencoded_parse(body):
     """
     Parse x-www-form-url encoded data
