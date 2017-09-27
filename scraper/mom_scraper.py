@@ -1,6 +1,8 @@
 from pyquery import PyQuery as pq
 from tornado.ioloop import IOLoop
 
+import utils
+
 
 class MOMScrapper(object):
     def __init__(self, io_loop=None):
@@ -27,9 +29,11 @@ class MOMScrapper(object):
             """
             form_html = pq(d.find('form[name="enquiryForm"]').html())
             result_html = pq(form_html.find('.outerBox > table > tr'))
+
             result_html.each(lambda e, tb_row:
                              dict_response.update(
-                                 {pq(tb_row).text().split(":")[0].strip(): pq(tb_row).text().split(":")[1].strip()})
+                                 {utils.convertSnakeCase(pq(tb_row).text().split(":")[0].strip()).replace(" ", ""):
+                                      pq(tb_row).text().split(":")[1].strip()})
                              )
         else:
             dict_response = dict(code=503,

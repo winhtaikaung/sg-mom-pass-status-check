@@ -1,4 +1,3 @@
-
 import os
 import tornado.web
 import requests
@@ -17,8 +16,9 @@ class UserHandler(BaseHandler):
     @gen.engine
     def get(self, params):
         mom_scrapper = MOMScrapper
-        mom_param = {'travelDocNo': 'MA889475'}
-        mom_request= requests.post(os.environ["MOM_URL"], mom_param)
-        response = yield gen.Task(mom_scrapper.get_scrapped_result, self,mom_request.content)
+        pass_port_no = self.path_args[0]
+        mom_param = {'travelDocNo': str(pass_port_no).strip().replace(" ", "")}
+        mom_request = requests.post(os.environ["MOM_URL"], mom_param)
+        response = yield gen.Task(mom_scrapper.get_scrapped_result, self, mom_request.content)
         # mom_scrapper.get_scrapped_result(self, os.environ["AVAILABLE_RESPONSE"])
         self.respond(response, {}, 200)
