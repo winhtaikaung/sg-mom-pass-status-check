@@ -7,8 +7,10 @@ import tornado
 from tornado import gen
 
 from const import QUESTIONS_PAYLOAD, ABOUT_MORE_PAYLOAD, CHECK_PP_PAYLOAD, INITIAL_QUICK_REPLY, ABOUT_QUICK_REPLY, \
-    CHECK_AGAIN_POSITIVE_PAYLOAD, CHECK_AGAIN_NEGATIVE_PAYLOAD, RESTART_QUICK_REPLY, CHECK_AGAIN_QUICK_REPLY
-from const.messages import MSG_INITIAL_GREETING, MSG_GOOD_BYE, MSG_PP_CHECK_INSTRUCTION
+    CHECK_AGAIN_POSITIVE_PAYLOAD, CHECK_AGAIN_NEGATIVE_PAYLOAD, RESTART_QUICK_REPLY, CHECK_AGAIN_QUICK_REPLY, \
+    ABOUT_PAGE_PAYLOAD, PRIVACY_POLICY_PAYLOAD, LICENSE_PAYLOAD
+from const.messages import MSG_INITIAL_GREETING, MSG_GOOD_BYE, MSG_PP_CHECK_INSTRUCTION, MSG_WELL_PRESS_BELOW, \
+    MSG_ABOUT_US, MSG_PRIVACY_POLICY, MSG_LICENSE
 from handlers.base_handler import BaseHandler
 from utils.messenger_template_util import send_location_reply, send_list_templates, send_quick_reply, send_typing_off, \
     send_typing_on
@@ -36,8 +38,9 @@ class MessengerHandler(BaseHandler):
                     for messaging_event in entry["messaging"]:
                         sender_id = messaging_event["sender"]["id"]
                         recipient_id = messaging_event["recipient"]["id"]
-                        if messaging_event.get("message"):
 
+                        if messaging_event.get("message"):
+                            send_typing_on(recipient_id=sender_id)
                             if messaging_event["message"].get("text"):
 
                                 if messaging_event["message"].get("quick_reply"):
@@ -57,7 +60,13 @@ class MessengerHandler(BaseHandler):
                                                          RESTART_QUICK_REPLY)
                                     elif payload == ABOUT_MORE_PAYLOAD:
                                         # Send about response
-                                        send_quick_reply(sender_id, "ကျနော့် အကြောင်းကတော့ဗျာ", ABOUT_QUICK_REPLY)
+                                        send_quick_reply(sender_id, MSG_WELL_PRESS_BELOW, ABOUT_QUICK_REPLY)
+                                    elif payload == ABOUT_PAGE_PAYLOAD:
+                                        send_quick_reply(sender_id, MSG_ABOUT_US, ABOUT_QUICK_REPLY)
+                                    elif payload == PRIVACY_POLICY_PAYLOAD:
+                                        send_quick_reply(sender_id, MSG_PRIVACY_POLICY, ABOUT_QUICK_REPLY)
+                                    elif payload == LICENSE_PAYLOAD:
+                                        send_quick_reply(sender_id, MSG_LICENSE, ABOUT_QUICK_REPLY)
                                     elif payload == CHECK_AGAIN_POSITIVE_PAYLOAD:
                                         send_quick_reply(sender_id,
                                                          MSG_PP_CHECK_INSTRUCTION,
@@ -70,11 +79,11 @@ class MessengerHandler(BaseHandler):
                                     message_text = messaging_event["message"]["text"]
                                     print(message_text)
                                     #  TODO MEssage Validation and checking here
-                                    send_typing_on(recipient_id=sender_id)
+
                                     send_quick_reply(sender_id,
                                                      MSG_INITIAL_GREETING,
                                                      INITIAL_QUICK_REPLY)
-                                    send_typing_off(recipient_id=sender_id)
+                                send_typing_off(recipient_id=sender_id)
                             elif messaging_event["message"].get("attachments"):
                                 if messaging_event["message"]["attachments"][0]["payload"].get("coordinates"):
                                     lat = messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"]
