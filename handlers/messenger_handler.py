@@ -6,8 +6,9 @@ import os
 import tornado
 from tornado import gen
 
-from const import QUESTIONS_PAYLOAD, ABOUT_PAYLOAD, CHECK_PP_PAYLOAD, INITIAL_QUICK_REPLY, ABOUT_QUICK_REPLY, \
+from const import QUESTIONS_PAYLOAD, ABOUT_MORE_PAYLOAD, CHECK_PP_PAYLOAD, INITIAL_QUICK_REPLY, ABOUT_QUICK_REPLY, \
     CHECK_AGAIN_POSITIVE_PAYLOAD, CHECK_AGAIN_NEGATIVE_PAYLOAD, RESTART_QUICK_REPLY, CHECK_AGAIN_QUICK_REPLY
+from const.messages import MSG_INITIAL_GREETING, MSG_GOOD_BYE, MSG_PP_CHECK_INSTRUCTION
 from handlers.base_handler import BaseHandler
 from utils.messenger_template_util import send_location_reply, send_list_templates, send_quick_reply, send_typing_off, \
     send_typing_on
@@ -52,19 +53,18 @@ class MessengerHandler(BaseHandler):
                                     elif payload == CHECK_PP_PAYLOAD:
                                         # Send CHECK Passport response and give chance to user to type in
                                         send_quick_reply(sender_id,
-                                                         "ကောင်းပြီ သင့်ရဲ့ Passport နံပါတ် ကို အခုချက်ဘောက်စ်မှာရိုက်ထည့်ပြီး ခဏလေးစောင့်ပေးပါ",
+                                                         MSG_PP_CHECK_INSTRUCTION,
                                                          RESTART_QUICK_REPLY)
-                                    elif payload == ABOUT_PAYLOAD:
+                                    elif payload == ABOUT_MORE_PAYLOAD:
                                         # Send about response
                                         send_quick_reply(sender_id, "ကျနော့် အကြောင်းကတော့ဗျာ", ABOUT_QUICK_REPLY)
-
                                     elif payload == CHECK_AGAIN_POSITIVE_PAYLOAD:
                                         send_quick_reply(sender_id,
-                                                         "ကောင်းပြီ သင့်ရဲ့ Passport နံပါတ် ကို အခုချက်ဘောက်စ်မှာရိုက်ထည့်ပြီး ခဏလေးစောင့်ပေးပါ",
+                                                         MSG_PP_CHECK_INSTRUCTION,
                                                          CHECK_AGAIN_QUICK_REPLY)
                                     elif payload == CHECK_AGAIN_NEGATIVE_PAYLOAD:
                                         send_quick_reply(sender_id,
-                                                         "မင်္ဂလာ ရှိသောနေ့ လေးတနေ့ဖြစ်ပါစေလို့ ဆုမွန်ကောင်းတောင်းပေးပါတယ်။",
+                                                         MSG_GOOD_BYE,
                                                          INITIAL_QUICK_REPLY)
                                 else:
                                     message_text = messaging_event["message"]["text"]
@@ -72,7 +72,7 @@ class MessengerHandler(BaseHandler):
                                     #  TODO MEssage Validation and checking here
                                     send_typing_on(recipient_id=sender_id)
                                     send_quick_reply(sender_id,
-                                                     "မင်ဂလာပါ မြန်မာလို Pass အခြေအနေ စစ်ဆေးပေးမယ့်ကိုရွှေ မှ ကြိုဆို ပါတယ်အောက်မှာပြထားတဲ့ ခလုပ်လေးတွေကိုနှိပ်ပြီးစစ်လို့ရပါတယ်",
+                                                     MSG_INITIAL_GREETING,
                                                      INITIAL_QUICK_REPLY)
                                     send_typing_off(recipient_id=sender_id)
                             elif messaging_event["message"].get("attachments"):
