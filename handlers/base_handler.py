@@ -1,7 +1,8 @@
 """
 Indico Request Handler
 """
-import json, traceback
+import json
+import traceback
 
 import tornado.web
 

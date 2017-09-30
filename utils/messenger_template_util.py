@@ -1,6 +1,5 @@
 import json
 import os
-
 import sys
 
 import requests
@@ -12,7 +11,7 @@ def log(message):  # simple wrapper for logging to stdout on heroku
 
 
 def send_message(recipient_id, message_text):
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+    # log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -72,7 +71,7 @@ def send_typing_off(recipient_id):
     #     log(r.text)
 
 
-def send_quick_reply(recipient_id, message):
+def send_quick_reply(recipient_id, message, arr_quick_reply_response):
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -85,17 +84,7 @@ def send_quick_reply(recipient_id, message):
         },
         "message": {
             "text": message,
-            "quick_replies": [
-                {
-                    "content_type": "text",
-                    "title": "Show around Me",
-                    "payload": "NEAR_BY_PAYLOAD"
-                }, {
-                    "content_type": "text",
-                    "title": "Rekommend Me",
-                    "payload": "RECOMMEND_ME_PAYLOAD"
-                }
-            ]
+            "quick_replies": arr_quick_reply_response
         }
 
     })
@@ -186,4 +175,4 @@ def send_list_templates(recipient, listitems):
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
-    log(r.text)
+        # log(r.text)
