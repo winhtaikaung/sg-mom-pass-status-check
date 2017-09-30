@@ -33,17 +33,25 @@ ABOUT_QUICK_REPLY = [
     {
         "content_type": "text",
         "title": "ကျွနု်ပ်တို့အကြောင်း",
-
+        "image_url": "https://image.flaticon.com/icons/png/128/15/15659.png",
         "payload": ABOUT_PAGE_PAYLOAD
     }, {
         "content_type": "text",
         "title": "ကိုယ်ရေးလုံခြုံမှု",
+        "image_url": "https://image.flaticon.com/icons/png/128/272/272354.png",
         "payload": PRIVACY_POLICY_PAYLOAD
     },
     {
         "content_type": "text",
         "title": "Licenses",
+        "image_url": "https://image.flaticon.com/icons/png/128/561/561715.png",
         "payload": LICENSE_PAYLOAD
+    },
+    {
+        "content_type": "text",
+        "title": "ပြန်စမယ်",
+        "image_url": "https://image.flaticon.com/icons/png/128/426/426867.png",
+        "payload": CHECK_AGAIN_POSITIVE_PAYLOAD
     }
 
 ]
@@ -52,12 +60,12 @@ RESTART_QUICK_REPLY = [
     {
         "content_type": "text",
         "title": "ပြန်စမယ်",
-        "image_url":"https://image.flaticon.com/icons/png/128/426/426867.png",
+        "image_url": "https://image.flaticon.com/icons/png/128/426/426867.png",
         "payload": CHECK_AGAIN_POSITIVE_PAYLOAD
     }, {
         "content_type": "text",
         "title": "စစ်တော့ဘူး",
-        "image_url":"https://image.flaticon.com/icons/png/128/334/334047.png",
+        "image_url": "https://image.flaticon.com/icons/png/128/334/334047.png",
         "payload": CHECK_AGAIN_NEGATIVE_PAYLOAD
     },
 ]

@@ -1,8 +1,9 @@
 import os
 
-from tornado.ioloop import IOLoop
-import tornado.web
 import tornado.options
+import tornado.web
+from tornado.ioloop import IOLoop
+
 from handlers.base_handler import BaseHandler
 from routes.messenger_route import messenger_routes
 from routes.user_route import user_routes
@@ -40,4 +41,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

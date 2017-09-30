@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+import re
 
+import requests
 import tornado
 from tornado import gen
 
@@ -10,9 +12,10 @@ from const import QUESTIONS_PAYLOAD, ABOUT_MORE_PAYLOAD, CHECK_PP_PAYLOAD, INITI
     CHECK_AGAIN_POSITIVE_PAYLOAD, CHECK_AGAIN_NEGATIVE_PAYLOAD, RESTART_QUICK_REPLY, CHECK_AGAIN_QUICK_REPLY, \
     ABOUT_PAGE_PAYLOAD, PRIVACY_POLICY_PAYLOAD, LICENSE_PAYLOAD
 from const.messages import MSG_INITIAL_GREETING, MSG_GOOD_BYE, MSG_PP_CHECK_INSTRUCTION, MSG_WELL_PRESS_BELOW, \
-    MSG_ABOUT_US, MSG_PRIVACY_POLICY, MSG_LICENSE
+    MSG_ABOUT_US, MSG_PRIVACY_POLICY, MSG_LICENSE, MSG_INVALID_PP_NO
 from handlers.base_handler import BaseHandler
-from utils.messenger_template_util import send_location_reply, send_list_templates, send_quick_reply, send_typing_off, \
+from scraper.mom_scraper import MOMScrapper
+from utils.messenger_template_util import send_list_templates, send_quick_reply, send_typing_off, \
     send_typing_on
 
 
@@ -77,20 +80,23 @@ class MessengerHandler(BaseHandler):
                                                          INITIAL_QUICK_REPLY)
                                 else:
                                     message_text = messaging_event["message"]["text"]
-                                    print(message_text)
-                                    #  TODO MEssage Validation and checking here
-
-                                    send_quick_reply(sender_id,
-                                                     MSG_INITIAL_GREETING,
-                                                     INITIAL_QUICK_REPLY)
+                                    match_obj = re.match('^(?!^0+$)[a-zA-Z0-9]{3,20}$',
+                                                         str(message_text).strip().replace(" ", ""), re.M | re.I)
+                                    if match_obj:
+                                        mom_scrapper = MOMScrapper
+                                        mom_param = {'travelDocNo': str(message_text).strip().replace(" ", "")}
+                                        mom_request = requests.post(os.environ["MOM_URL"], mom_param)
+                                        response = yield gen.Task(mom_scrapper.get_scrapped_result, self,
+                                                                  mom_request.content)
+                                        send_quick_reply(sender_id,
+                                                         response["meta"]["message"],
+                                                         CHECK_AGAIN_QUICK_REPLY)
+                                    else:
+                                        # Invalid Passport Number
+                                        send_quick_reply(sender_id,
+                                                         MSG_INVALID_PP_NO,
+                                                         CHECK_AGAIN_QUICK_REPLY)
                                 send_typing_off(recipient_id=sender_id)
-                            elif messaging_event["message"].get("attachments"):
-                                if messaging_event["message"]["attachments"][0]["payload"].get("coordinates"):
-                                    lat = messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["lat"]
-                                    lon = messaging_event["message"]["attachments"][0]["payload"]["coordinates"]["long"]
-                                    response = {}
-                                    # yield gen.Task(merchant_repo.get_nearby_merchants, 10, lat, lon)
-                                    send_list_templates(sender_id, response)
 
                         if messaging_event.get("delivery"):  # delivery confirmation
                             pass
@@ -99,12 +105,9 @@ class MessengerHandler(BaseHandler):
                             pass
 
                         if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
-                            print(messaging_event)
-                            if messaging_event["postback"]["payload"] == "NOT_THIS_ONE":
-                                send_quick_reply(sender_id, "Okie ;) \nHang on ")
                             if messaging_event["postback"]["payload"] == "GET_STARTED_PAYLOAD":
                                 send_quick_reply(sender_id,
-                                                 "Have a good day to you! How may I help you to find something for you?")
+                                                 MSG_INITIAL_GREETING, INITIAL_QUICK_REPLY)
                             pass
                 elif entry.get("postback"):
                     print("callback")
