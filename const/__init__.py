@@ -1,3 +1,5 @@
+from utils.rabbit import Rabbit
+
 NEAR_BY_PAYLOAD = "NEAR_BY_PAYLOAD"
 RECOMMEND_ME_PAYLOAD = "RECOMMEND_ME_PAYLOAD"
 LOCATION_NEGATIVE_PAYLOAD = "LOCATION_NEGATIVE_PAYLOAD"
@@ -16,13 +18,13 @@ CHECK_AGAIN_NEGATIVE_PAYLOAD = "CHECK_AGAIN_NEGATIVE_PAYLOAD"
 INITIAL_QUICK_REPLY = [
     {
         "content_type": "text",
-        "title": "စစ်မယ်",
+        "title": Rabbit.uni2zg("စစ်မယ်"),
         "image_url": "https://image.flaticon.com/icons/png/128/148/148767.png",
         "payload": CHECK_PP_PAYLOAD
     },
     {
         "content_type": "text",
-        "title": "ပိုမိုသိရှိရန်",
+        "title": Rabbit.uni2zg("ပိုမိုသိရှိရန်"),
         "image_url": "https://image.flaticon.com/icons/png/128/189/189665.png",
         "payload": ABOUT_MORE_PAYLOAD
     }
@@ -32,12 +34,12 @@ INITIAL_QUICK_REPLY = [
 ABOUT_QUICK_REPLY = [
     {
         "content_type": "text",
-        "title": "ကျွနု်ပ်တို့အကြောင်း",
+        "title": Rabbit.uni2zg("ကျွနု်ပ်တို့အကြောင်း"),
         "image_url": "https://image.flaticon.com/icons/png/128/15/15659.png",
         "payload": ABOUT_PAGE_PAYLOAD
     }, {
         "content_type": "text",
-        "title": "ကိုယ်ရေးလုံခြုံမှု",
+        "title": Rabbit.uni2zg("ကိုယ်ရေးလုံခြုံမှု"),
         "image_url": "https://image.flaticon.com/icons/png/128/272/272354.png",
         "payload": PRIVACY_POLICY_PAYLOAD
     },
@@ -49,7 +51,7 @@ ABOUT_QUICK_REPLY = [
     },
     {
         "content_type": "text",
-        "title": "ပြန်စမယ်",
+        "title": Rabbit.uni2zg("ပြန်စမယ်"),
         "image_url": "https://image.flaticon.com/icons/png/128/426/426867.png",
         "payload": CHECK_AGAIN_POSITIVE_PAYLOAD
     }
@@ -59,12 +61,12 @@ ABOUT_QUICK_REPLY = [
 RESTART_QUICK_REPLY = [
     {
         "content_type": "text",
-        "title": "ပြန်စမယ်",
+        "title": Rabbit.uni2zg("ပြန်စမယ်"),
         "image_url": "https://image.flaticon.com/icons/png/128/426/426867.png",
         "payload": CHECK_AGAIN_POSITIVE_PAYLOAD
     }, {
         "content_type": "text",
-        "title": "စစ်တော့ဘူး",
+        "title": Rabbit.uni2zg("စစ်တော့ဘူး"),
         "image_url": "https://image.flaticon.com/icons/png/128/334/334047.png",
         "payload": CHECK_AGAIN_NEGATIVE_PAYLOAD
     },
@@ -73,13 +75,13 @@ RESTART_QUICK_REPLY = [
 CHECK_AGAIN_QUICK_REPLY = [
     {
         "content_type": "text",
-        "title": "ထပ်စစ်မည်",
+        "title": Rabbit.uni2zg("ထပ်စစ်မည်"),
         "image_url": "https://image.flaticon.com/icons/png/128/426/426867.png",
         "payload": CHECK_AGAIN_POSITIVE_PAYLOAD
     }, {
         "content_type": "text",
-        "title": "စစ်တော့ဘူး",
+        "title": Rabbit.uni2zg("စစ်တော့ဘူး"),
         "image_url": "https://image.flaticon.com/icons/png/128/334/334047.png",
         "payload": CHECK_AGAIN_NEGATIVE_PAYLOAD
-    },
+    }
 ]
