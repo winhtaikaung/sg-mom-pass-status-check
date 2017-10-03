@@ -2,7 +2,7 @@ from utils.rabbit import Rabbit
 
 MSG_INITIAL_GREETING = Rabbit.uni2zg(
     "မင်္ဂလာပါ မြန်မာလို Pass အခြေအနေ စစ်ဆေးပေးမယ့်ကိုရွှေ မှ ကြိုဆို ပါတယ်အောက်မှာပြထားတဲ့ ခလုပ်လေးတွေကိုနှိပ်ပြီးစစ်လို့ရပါတယ်" \
-    "ခုလောလောဆယ်တော့ S Pass နဲ့ E Pass ကို သာစစ်လို့ရမှာဖြစ် ပြီး WP ကတော့ ရမှာမဟုတ်သေးတဲ့ အတွက်တောင်းပန်ပါတယ်။")
+    "ခုလောလောဆယ်တော့ S Pass နဲ့ E Pass ကို သာစစ်လို့ရမှာဖြစ် ပြီး WP(Work Permit) ကတော့ ရမှာမဟုတ်သေးတဲ့ အတွက်တောင်းပန်ပါတယ်။")
 MSG_GOOD_BYE = Rabbit.uni2zg("အလုပ်အကိုင်တွေအားလုံးအဆင် ပြေပါစေလို့ဆုမွန်ကောင်းတောင်း ပေးပါတယ်။")
 
 MSG_PP_CHECK_INSTRUCTION = Rabbit.uni2zg(
@@ -40,7 +40,7 @@ MSG_LICENSE = Rabbit.uni2zg(
     "Apache License : V2https://github.com/requests/requests/\n")
 
 MSG_RECORD_NOT_FOUND = Rabbit.uni2zg("ယခုပတ်စပို့နံပတ်နဲ့ သက်ဆိုင်တဲ့ အချက်အလက်ကိုရှာမတွေ့ပါ။\n " \
-                                     "သို့မဟုတ် Work Permit အမျိုးအစား ကို လောလောဆယ်စစ်လို့မရသေးပါခင်ဗျာ အဆင်မပြေမှုများအတွက်တောင်းပန်ပါတယ်ခင်ဗျာ။" \
+                                     "သို့မဟုတ် (WP)Work Permit အမျိုးအစား ကို လောလောဆယ်စစ်လို့မရသေးပါခင်ဗျာ အဆင်မပြေမှုများအတွက်တောင်းပန်ပါတယ်ခင်ဗျာ။" \
                                      "အရမ်းစိတ်မပူပါနဲ့ သေချာအောင် https://eponline.mom.gov.sg/epol/PEPOLENQM008SubmitAction.do မှာစစ်ကြည့်ပါအုန်း")
 
 MSG_RECORD_EXISTS = Rabbit.uni2zg("အမည်။  ။ {} \n" \
